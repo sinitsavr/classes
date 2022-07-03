@@ -1,35 +1,37 @@
 "use strict";
 
-class Rangevalidator {
+class RangeValidator {
   constructor(from, to) {
     this.from = from;
     this.to = to;
   }
   get from() {
-    return this.from;
+    return this._from;
   }
   set from(from) {
-    if (from <= this.to) {
+    if (from >= this._to) {
       throw new RangeError();
     }
-    this.from = from;
+    this._from = from;
   }
   get to() {
-    return this.to;
+    return this._to;
   }
   set to(to) {
-    if (to >= this.from) {
+    if (to <= this._from) {
       throw new RangeError();
     }
-    this.to = to;
+    this._to = to;
   }
   get Range() {
-    return [this.from, this.to];
+    return [this._from, this._to];
   }
   validate(number) {
-    if (number >= this._from && number <= this.to) {
+    if (number >= this._from && number <= this._to) {
       return number;
     }
     throw new RangeError();
   }
 }
+const range = new RangeValidator(5,10);
+console.log(range.validate(8));
